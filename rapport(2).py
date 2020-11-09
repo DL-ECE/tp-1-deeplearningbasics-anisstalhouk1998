@@ -99,11 +99,11 @@ plot_one_image(X_test, y_test , 250)
 
 # It's important to normalize the data before feeding it into the neural network
 def normalize_data(dataset: np.array) -> np.array:
-    normalized_dataset =(dataset-np.min(dataset))/(np.max(dataset)-np.min(dataset))
-    #dataset/255
-    return normalized_dataset
+    #normalized_dataset =(dataset-np.min(dataset))/(np.max(dataset)-np.min(dataset))
+    normalize_dataset=dataset/255
+    return normalize_dataset
 
-normalize_data(mnist_data)[0]
+#normalize_data(mnist_data)[0]
 
 """It's also important to find a good representation of the target.
 
@@ -119,7 +119,7 @@ For example, a `[0,1,9]` vector will become the following matrix:
 """
 
 def target_to_one_hot(target: np.array) -> np.array:
-    one_hot_matrix = np.zeros([target.shape[0],10]) 
+    one_hot_matrix = np.zeros(([target.shape[0],10])) 
     for i in range(0,target.shape[0]) :
      label = int(target[i])
      one_hot_matrix[i,label] = 1
@@ -141,6 +141,7 @@ def sigmoid(M: np.array) -> np.array:
     Mat_sigmoid = 1/(1+np.exp(-M))
     
     return Mat_sigmoid
+sigmoid(1)
 
 def d_sigmoid(M: np.array)-> np.array:
     """Compute the derivative of the sigmoid""" 
@@ -336,6 +337,9 @@ It will help us understand why the neural network failed sometimes to classify i
 """
 
 nsample = 1000
+X_test = normalize_data(X_test)
+y_test_ = target_to_one_hot(y_test)
+
 X_demo = X_test[:nsample,:]
 y_demo = ffnn.forward_pass(X_demo)
 y_true = y_test[:nsample,:]
@@ -347,13 +351,18 @@ plot_one_image(X_demo, y_true, index_to_plot)
 prediction = np.argmax(y_demo[index_to_plot,:])
 true_target = np.argmax(y_true[index_to_plot,:])
 
+print(prediction)
+print(true_target)
 # is it the same number ?
 
 # loop arround the demo test set and try to find a miss prediction
+error=0
 for i in range(0, nsample):   
-    prediction = None # Todo
-    true_target = None # Todo
+    prediction = np.argmax(y_demo[i,:]) # Todo
+    true_target =  np.argmax(y_true[i,:]) # Todo
     if prediction != true_target:
+      error+=1
+print(error)
         # TODO
 
 """## Open analysis
@@ -372,7 +381,9 @@ Also explain how the neural network behave when changing them ?
 TODO
 
 minibatch_size: J'ai augmenté le nombre de minibatch pour améliorer l'efficacité du training en augmenton le nombre d'échantillon.
-Config: j'ai augmenter le nombre de noeud pour avoir plus de feature.
-learning rate:J'ai pris un learning rate plus élevé pour faire converger plus rapidement.
+Config: j'ai augmenter le nombre de module pour avoir plus de feature.
+learning rate:J'ai pris un learning rate plus élevé pour faire converger plus rapidement. Mais pas beaucoup pour ne pas fausser le gradient descent
+nepoch : J'augmente le nombre de cycle pour améliorer la précision du training
 """
 
+pass
