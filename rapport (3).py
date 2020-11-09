@@ -372,7 +372,7 @@ Also explain how the neural network behave when changing them ?
 TODO
 
 minibatch_size: J'ai augmenté le nombre de minibatch pour améliorer l'efficacité du training en augmenton le nombre d'échantillon.
-Config: j'ai augmenter le nombre de noeud pour avoir plus de feature.
+Config: j'ai augmenter le nombre de module pour avoir plus de feature.
 learning rate:J'ai pris un learning rate plus élevé pour faire converger plus rapidement. Mais pas beaucoup pour ne pas fausser le gradient descent
 nepoch : J'augmente le nombre de cycle pour améliorer la précision du training
 """
